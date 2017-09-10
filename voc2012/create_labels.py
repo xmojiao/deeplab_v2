@@ -12,10 +12,10 @@ import numpy as np
 import PIL.Image as Image
 
 
-os.chdir('/home/dl/deeplab/exper/voc12/features/deeplab_largeFOV/val/fc8/')
+os.chdir('/home/dl/deeplab_v2/voc2012/features/deeplab_largeFOV/val/fc8')
 path=os.getcwd()
 files=os.listdir(path)
-labels_path=os.path.join(path,'labels')
+labels_path=os.path.join(path,'../labels')
 
 
 palette=[]
@@ -57,6 +57,6 @@ for afile in files:
         label_img=Image.fromarray(labels.reshape(labels.shape[0],labels.shape[1]))
         label_img.putpalette(palette)
         label_img=label_img.transpose(Image.FLIP_LEFT_RIGHT)
-#       label_img.show()
+        label_img = label_img.rotate(90)
         dst_path=os.path.join(labels_path,mat_idx+'.png')
         label_img.save(dst_path)
