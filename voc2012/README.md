@@ -16,6 +16,13 @@
  - **官网脚本文件**: [三个sh文件](https://ucla.box.com/s/4grlj8yoodv95936uybukjh5m0tdzvrf)，建议使用脚本文件，初看虽不懂，但是比[python版本](https://github.com/TheLegendAli/CCVL)的运行简单很多
 注：本博客只涉及脚本版本的训练
 
+
+----------
+
+
+----------
+
+
 ## 准备工作
 ### 1.必要工具
    下载安装matio,[下载地址](http://sourceforge.net/projects/matio/files/matio/1.5.2/)
@@ -100,12 +107,20 @@ mv ./cls_png ./SegmentationClassAug
 ----------
 
 
+----------
+
+
 ### 1.从github克隆train deeplab_v2文件夹
 此github已经将文件夹结构建好，并下载放置对应的txt文件，prototxt文件，脚本sh文件，放置到对应文件夹下。由于官方model文件大，不宜放GitHub，将在第3步下载。
 ```
 cd ~
 git clone git@github.com:xmojiao/deeplab_v2.git
 ```
+
+
+----------
+
+
 ### 2.将源码下载到此文件夹下，并编译安装deeplab caffe 
 
 ```
@@ -120,6 +135,9 @@ make runtest # NOT mandatory
 ```
 
 
+----------
+
+
 ### 3.将官方预训练的model放置到voc2012的model/deeplab_largeFOV
 
 此处以VGG16训练为例，model[下载地址](http://liangchiehchen.com/projects/released/deeplab_aspp_vgg16/prototxt_and_model.zip)
@@ -131,7 +149,6 @@ mv *caffemodel ~/deeplab_v2/model/deeplab_largeFOV
 rm *prototxt
 ```
 
-----------
 
 
 -------------------
@@ -258,24 +275,98 @@ fi
 #test部分运行时，即以下运行命令../deeplab-public-ver2/.build_release/tools/caffe.bin test --model=voc12/config/deeplab_largeFOV/test_val.prototxt --weights=voc12/model/deeplab_largeFOV/train_iter_20000.caffemodel --gpu=0 --iterations=1449
 #上述命令中，test_val.prototxt由test.prototxt文件复制而来，train_iter_20000.caffemode由第一部分train得到的model
 ```
+
+
+----------
+
+
 ### 5.deeplab跑起来
+
+此处我将train和test分开操作，即是修改run_pascal.sh脚本中的如下代码：
+![这里写图片描述](http://img.blog.csdn.net/20170910225002960?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+
+----------
+
+
+ - RUN_TRAIN=1 时 
+ 
 
 ```
 cd ~/deeplab_v2/voc2012
 sh run_pascal.sh 2>&1|tee train.log
-```
-2>&1|tee train.log
- 指令的作用为在命令行展示log的同时，保存log到当前目录的train.log文件夹。此处我将train和test分开操作，之前工作做的顺利的话，你就能看到如下结果。
- 
 
- - RUN_TRAIN=1 时 
+```
+
+2>&1|tee train.log
+ 指令的作用为在命令行展示log的同时，保存log到当前目录的train.log文件夹。前工作做的顺利的话，你就能看到如下结果。
 
 ![这里写图片描述](http://img.blog.csdn.net/20170909004756855?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ![这里写图片描述](http://img.blog.csdn.net/20170909004817659?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
+----------
+
+
+
+
  - RUN_TEST=1
-时
+
+目前没发现作者有写单张图片测试的代码，但是当我们跑此部分run_test时，会得到png格式的测试结果 
+
+**跑出测试结果**
+
+ 
+
+```
+sh run_pascal.sh 2>&1|tee train.log
+
+```
+
+
+
+前工作做的顺利的话，你就能看到如下log
+![这里写图片描述](http://img.blog.csdn.net/20170910225603453?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+
+----------
+
+
+----------
 
 
 ### 6.将test的结果mat文件转换为png文件
+test结束，你会在~/deeplab_v2/voc2012/features/deeplab_largeFOV/val/fc8目录下跑出mat格式的结果。
+![这里写图片描述](http://img.blog.csdn.net/20170910225908184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+
+----------
+
+
+**mat转png图片**
+-修改creat_labels.py中文件目录
+
+```
+cd ~/deeplab_v2/voc2012/
+vim create_labels.py
+```
+
+
+
+
+![这里写图片描述](http://img.blog.csdn.net/20170910230640226?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+
+----------
+
+
+-在此目录运行creat_labels.py
+
+`python create_labels.py`
+
+大功告成，可以看到结果如下图：
+![这里写图片描述](http://img.blog.csdn.net/20170910232511018?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+
+取第一张图片2007_000033.jpg将其放大对比：
+![这里写图片描述](http://img.blog.csdn.net/20170910232609797?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
