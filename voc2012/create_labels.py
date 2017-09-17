@@ -12,10 +12,10 @@ import numpy as np
 import PIL.Image as Image
 
 
-os.chdir('/home/dl/deeplab_v2/voc2012/features/deeplab_largeFOV/val/fc8')
+os.chdir('/home/dl/deeplab_v2/voc2012/features/deeplab_largeFOV/val/fc8/')
 path=os.getcwd()
 files=os.listdir(path)
-labels_path=os.path.join(path,'../labels')
+labels_path=os.path.join(path,'labels')
 
 
 palette=[]
