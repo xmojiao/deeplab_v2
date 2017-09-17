@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 os.chdir('/home/guo/deeplab_v2/nyu/features/deeplab_largeFOV/val/fc8/')
 path=os.getcwd()
 files=os.listdir(path)
-labels_path=os.path.join(path,'../fc8_labels')
+labels_path=os.path.join(path,'./labels')
 
 
 palette=[]
