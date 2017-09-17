@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## MODIFY PATH for YOUR SETTING
-ROOT_DIR=/home/dl/DL_dataset
+ROOT_DIR=/home/guo/DL_dataset
 
 CAFFE_DIR=../deeplab-public-ver2
 CAFFE_BIN=${CAFFE_DIR}/.build_release/tools/caffe.bin

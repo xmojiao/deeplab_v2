@@ -37,7 +37,7 @@ layer {
   image_data_param {
     root_folder: "${DATA_ROOT}"
     source: "${EXP}/list/${TRAIN_SET}.txt"
-    batch_size: 1
+    batch_size: 10
     shuffle: true
     label_type: PIXEL
   }
