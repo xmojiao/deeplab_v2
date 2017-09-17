@@ -1,5 +1,3 @@
-# deeplab_v2
-基于v2版本的deeplab,使用VGG16模型，在VOC2012，Pascal-context，NYU-v2等多个数据集上进行训练
 
 
 好记性不如烂笔头, 最近用Deeplab v2跑的图像分割，现记录如下。
@@ -77,8 +75,19 @@ mv * ~/deeplab/exper/voc12/list
 
 ```
 ### 5.数据集处理
-### 6.脚本文件修改
+论文中提到的pascal voc训练，其使用的数据不只是官网下载的[pascal-voc2012源数据](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar),而是由voc2012和另外一个[pascal voc2012增强数据集](http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/semantic_contours/benchmark.tgz)合并而成 。
+具体数据整理步骤请看另一篇博客[从头开始训练deeplab v2系列之二【VOC2012数据集】](http://blog.csdn.net/Xmo_jiao/article/details/77897109)
+![这里写图片描述](http://img.blog.csdn.net/20170909102655206?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
+对于其他图像分割的数据集，我们也可以处理成类似voc2012数据集的格式，进行fine tuning, 这里分别有对
+[pascal context数据集](http://blog.csdn.net/xmo_jiao/article/details/78009438)和[nyu v2数据集](http://blog.csdn.net/xmo_jiao/article/details/78012504)的数据处理说明。
+
+
+### 6.脚本文件解析与修改方法
+deeplab v2源码直接第一次使用的话确实有很多坑，其中除了数据集要注意的地方，大部分的坑在脚本文件。不过运行成功之后再换其他数据集，真的很方便，不需要改网络文件和文本文件，只需要修改脚本文件script，就会自动生成相应的网络结构文件和txt文件，所以**学会修改脚本文件至关重要**
+训练速度相对于某些图像分割的网络超快，而且即使你的分类数超过255类，也没关系。
+上图我选的459类的数据集训练结果
+![这里写图片描述](http://img.blog.csdn.net/20170909102628493?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWG1vX2ppYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 -------------------
 
@@ -257,10 +266,6 @@ if [ ${RUN_TEST2} -eq 1 ]; then
 fi
 
 ```
-
-
-
-
 
 ---------
 
