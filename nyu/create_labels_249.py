@@ -11,10 +11,10 @@ import numpy as np
 import PIL.Image as Image
 import matplotlib.pyplot as plt
 
-os.chdir('/home/guo/deeplab_v2/pascal-context/features/deeplab_largeFOV/val/fc8/')
+os.chdir('/home/guo/deeplab_v2/nyu/features/deeplab_largeFOV/val/fc8/')
 path=os.getcwd()
 files=os.listdir(path)
-labels_path=os.path.join(path,'labels')
+labels_path=os.path.join(path,'../fc8_labels')
 
 
 palette=[]
